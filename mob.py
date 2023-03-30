@@ -13,11 +13,14 @@ class Monster:
         other.hp -= damage
         print(f"{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
 
+    def show_status(self):
+        print(f"{self.name}: HP {self.hp}/{self.max_hp}")
+
     def is_alive(self):
         return self.hp > 0
 
     def __str__(self):
-        return f"{self.name} (HP: {self.hp}, 파워: {self.power})"
+        return f"{self.name} (HP: {self.hp}/{self.max_hp}, 파워: {self.power})"
 
 
 class Nomal_Monster(Monster):
@@ -25,9 +28,6 @@ class Nomal_Monster(Monster):
         super().__init__(name, hp, power)
         self.attribute = 'nomal'
         print(f'무속성 {self.name}')
-
-    def __str__(self):
-        return f"무속성의 {self.name} (HP: {self.hp}, 파워: {self.power})"
 
 
 class Water_Monster(Monster):
@@ -40,9 +40,6 @@ class Water_Monster(Monster):
         other.hp -= damage
         print(f"{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
 
-    def __str__(self):
-        return f"{self.attribute}의 {self.name} (HP: {self.hp}, 파워: {self.power})"
-
 
 class Fire_Monster(Monster):
     def __init__(self, name, hp, power):
@@ -53,9 +50,6 @@ class Fire_Monster(Monster):
         damage = random.randint(int(self.power * 0.8), int(self.power * 1.5))
         other.hp -= damage
         print(f"{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
-
-    def __str__(self):
-        return f"{self.attribute}의 {self.name} (HP: {self.hp}, 파워: {self.power})"
 
 
 class Grass_Monster(Monster):
@@ -68,9 +62,6 @@ class Grass_Monster(Monster):
         other.hp -= damage
         print(f"{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
 
-    def __str__(self):
-        return f"{self.attribute}의 {self.name} (HP: {self.hp}, 파워: {self.power})"
-
 
 class Ground_Monster(Monster):
     def __init__(self, name, hp, power):
@@ -81,9 +72,6 @@ class Ground_Monster(Monster):
         damage = random.randint(int(self.power * 0.8), int(self.power * 1.5))
         other.hp -= damage
         print(f"{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
-
-    def __str__(self):
-        return f"{self.attribute}의 {self.name} (HP: {self.hp}, 파워: {self.power})"
 
 
 class Ice_Monster(Monster):
@@ -96,9 +84,6 @@ class Ice_Monster(Monster):
         other.hp -= damage
         print(f"{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
 
-    def __str__(self):
-        return f"{self.attribute}의 {self.name} (HP: {self.hp}, 파워: {self.power})"
-
 
 def generate_monster():
     monster_list = ['드래곤', '오크', '슬라임', '좀비', '고블린', '골렘',
@@ -108,6 +93,7 @@ def generate_monster():
                               Ground_Monster, Ground_Monster, Ice_Monster]
     # monster_attribute_list = [Water_Monster]
     monster_attribute = random.choice(monster_attribute_list)
-    monster_hp = (random.randint(150, 200))
+    monster_hp = 30  # (random.randint(150, 200))
     monster_power = (random.randint(20, 30))
-    return monster_attribute(monster_name, monster_hp, monster_power)
+    monsters = monster_attribute(monster_name, monster_hp, monster_power)
+    return monsters
