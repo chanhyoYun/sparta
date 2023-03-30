@@ -3,8 +3,10 @@ import tower
 
 towerfile = tower.generate_monster()
 
+# 모체 클래스
 
-class Monstersss:
+
+class Object:
     def __init__(self, name, hp, power):
         self.name = name
         self.max_hp = hp
@@ -20,8 +22,10 @@ class Monstersss:
     def __str__(self):
         return f"{self.name} (HP: {self.hp}, 파워: {self.power})"
 
+# 플레이어 설정
 
-class Player(Monstersss):
+
+class Player(Object):
     def __init__(self):
         self.name = "somsom"
         self.level = 1
@@ -74,9 +78,10 @@ class Player(Monstersss):
 #     monster_name = random.choice(monster_names)
 #     monster_hp = random.randint(5, 15)
 #     monster_power = random.randint(2, 5)
-#     return Monstersss(monster_name, monster_hp, monster_power)
+#     return Object(monster_name, monster_hp, monster_power)
 
 
+# 게임 실행 함수
 def main():
     print("잡아보자...!")
     player = Player()
@@ -124,4 +129,5 @@ def main():
             quit()
 
 
+# 실행
 main()
