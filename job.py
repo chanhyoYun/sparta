@@ -38,7 +38,10 @@ class Player(Object):
         self.job = create_job()
         self.job_name = self.job.job_name
         self.job_skill = self.job.job_skill
-        self.skill_power = self.job.skill_power
+        self.job_str = self.job.strength
+        self.job_int = self.job.intelligence
+        self.job_agi = self.job.agility
+        self.skill_power = self.job_str + self.job_int + self.job_agi
         self.skill_use_mp = self.skill_power // 2
 
     def attack(self, monster):
@@ -102,12 +105,16 @@ class Player(Object):
         print(f"파워: {self.power}")
         print(f"스킬파워: {self.skill_power}")
         print(f"인벤토리: {', '.join(self.inventory)}")
+        print("----------------------------------------------")
+        print(f"힘(Strength): {self.job_str}")
+        print(f"지능(Intelligence): {self.job_int}")
+        print(f"민첩(Agility): {self.job_agi}")
 
     def __str__(self):
         return f"{self.name} (HP: {self.hp}/{self.max_hp}, 파워: {self.power}, 스킬파워: {self.skill_power})"
 
 
-class Job:
+class Job(Player):
     def __init__(self):
         self.job_name = "직업이름"
         self.strength = 7  # 스탯 힘
@@ -125,7 +132,6 @@ class Warrior(Job):
         self.intelligence = 5
         self.agility = 7
         self.job_skill = "파워스크라이크"
-        self.skill_power = self.strength + self.intelligence + self.agility
 
         #     self.strength = job.strength + 3
         #     self.intelligence = job.intelligence - 2
@@ -139,7 +145,6 @@ class Archer(Job):
         self.intelligence = 10
         self.agility = 5
         self.job_skill = "홀리애로우"
-        self.skill_power = self.strength + self.intelligence + self.agility
 
         #     self.strength = job.strength - 2
         #     self.intelligence = job.intelligence + 3
@@ -153,7 +158,6 @@ class Wizard(Job):
         self.intelligence = 10
         self.agility = 7
         self.job_skill = "썬더볼트"
-        self.skill_power = self.strength + self.intelligence + self.agility
 
         #     self.strength = job.strength - 2
         #     self.intelligence = job.intelligence + 3
@@ -167,11 +171,12 @@ class Thief(Job):
         self.intelligence = 7
         self.agility = 10
         self.job_skill = "쿼드스로우"
-        self.skill_power = self.strength + self.intelligence + self.agility
 
         #     self.strength = job.strength + 1
         #     self.intelligence = job.intelligence + 1
         #     self.agility = job.agility + 3
+
+# 플레이어 생성
 
 
 def create_player():
@@ -181,6 +186,8 @@ def create_player():
     player_power = random.randint(25, 30)
     players = Player(player_name, player_hp, player_power, player_mp)
     return players
+
+# 직업 선택, 생성
 
 
 def create_job():

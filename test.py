@@ -1,11 +1,14 @@
 import mob
 import job
+import mine
 
 
 # 게임 실행 함수
+
+
 def main():
     print("잡아보자...!")
-    player = job.create_player()
+
     while True:
         print("=" * 20)
         print("무엇을 선택하시겠나요?")
@@ -35,10 +38,15 @@ def main():
                         if not player.is_alive():
                             print("패배!")
                             quit()
+                    elif not monster.is_alive():
+                        mine.rewards(player)
                 elif battle_choice == "2":
                     player.skill_attack(monster)
                     if monster.is_alive():
                         monster.attack(player)
+                        if not player.is_alive():
+                            print("패배!")
+                            quit()
                 elif battle_choice == "3":
                     player.heal()
                     monster.attack(player)
@@ -56,4 +64,5 @@ def main():
 
 
 # 실행
+player = job.create_player()
 main()
