@@ -1,3 +1,7 @@
+from time import sleep
+import os
+
+
 class Item:
     def __init__(self, item_num, name, price, weight, isdropable):
         self.name = name
@@ -50,10 +54,16 @@ def make_item():
 
 
 def get_items(player):
+    print("상점입니다.")
+    print("구매하실 항목의 숫자를 입력해주세요.")
+    print(f"현재 보유 Gold: {player.money}")
+    print("=" * 25)
     store = make_item()
     for i in range(len(store)):
         print(f"{store[i].item_num}. {store[i].name}, 가격: {store[i].price}")
     choice = input("> ")
+    sleep(1)
+    os.system('cls')
     if player.money >= store[0].price and choice == "1":
         player.inventory.append(store[0].name)
         player.money -= store[0].price
@@ -77,3 +87,6 @@ def get_items(player):
         print(f'{store[3].name}을 구매했습니다.')
     else:
         print('골드가 부족합니다.')
+
+    sleep(1)
+    os.system('cls')

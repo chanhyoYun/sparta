@@ -91,9 +91,9 @@ def generate_monster():
     monster_name = random.choice(monster_list)
     monster_attribute_list = [Water_Monster, Fire_Monster,
                               Ground_Monster, Ground_Monster, Ice_Monster]
-    # monster_attribute_list = [Water_Monster]
+
     monster_attribute = random.choice(monster_attribute_list)
-    monster_hp = 30  # (random.randint(150, 200))
-    monster_power = (random.randint(20, 30))
+    monster_hp = (random.randint(150, 200))
+    monster_power = (random.randint(20, 25))
     monsters = monster_attribute(monster_name, monster_hp, monster_power)
     return monsters

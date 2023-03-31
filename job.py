@@ -1,4 +1,6 @@
 import random
+from time import sleep
+import os
 
 
 class Object:
@@ -33,7 +35,7 @@ class Player(Object):
         self.hp = hp
         self.max_mp = mp
         self.mp = mp
-        self.money = 1000000
+        self.money = 10000
         self.power = power
         self.inventory = []
         self.job = create_job()
@@ -44,6 +46,7 @@ class Player(Object):
         self.job_agi = self.job.agility
         self.skill_power = self.job_str + self.job_int + self.job_agi
         self.skill_use_mp = self.skill_power // 2
+        self.tower_stage = 1
 
     def attack(self, monster):
         monster.hp -= self.power
@@ -52,6 +55,11 @@ class Player(Object):
             print(f"{monster.name} 가 죽었어요..!")
             self.experience += 10
             self.money += 100
+            self.tower_stage += 1
+            print(f"{self.tower_stage} 층으로 올라갑니다.")
+            print("=" * 25)
+            sleep(1)
+
             self.level_up()
 
     def skill_attack(self, monster):
@@ -64,6 +72,8 @@ class Player(Object):
                 print(f"{monster.name} 가 죽었음")
                 self.experience += 10
                 self.money += 100
+                self.tower_stage += 1
+                print(f"{self.tower_stage} 층으로 올라갑니다.")
                 self.level_up()
         else:
             print(f"MP가 부족합니다. {self.mp}/{self.max_mp}")
@@ -74,6 +84,8 @@ class Player(Object):
     def level_up(self):
         print(f"{self.experience}경험치를 얻었습니다.")
         print(f"{self.name} 경험치: {self.experience}/{self.level * 20}")
+        print("=" * 25)
+        sleep(0.5)
         if self.experience >= self.level * 20:
             self.level += 1
             self.max_hp += 5
@@ -107,6 +119,32 @@ class Player(Object):
                 print("포션을 사용했습니다.")
             else:
                 print("포션을 가지고 있지 않아요!")
+
+    def item_equip(self):
+        print("=" * 25)
+        print("장착하실 장비의 이름을 입력해주세요.")
+        print("아무것도 안하신다면 quit를 입력해주세요.")
+        equip_choice = input(">  ")
+        if equip_choice == "강철검":
+            if "sword" in self.inventory:
+                print('"강철검"을 장착하여 공격력이 5 증가합니다.')
+                self.power += 5
+                self.skill_power += 5
+                self.inventory.remove("sword")
+            else:
+                print("강철검을 가지고 있지 않습니다.")
+                pass
+        elif equip_choice == "철갑옷":
+            if "armor" in self.inventory:
+                print('"철갑옷"을 장착하여 최대 체력이 10 증가합니다.')
+                self.max_hp += 10
+                self.hp += 10
+                self.inventory.remove("armor")
+            else:
+                print("철갑옷을 가지고 있지 않습니다.")
+                pass
+        elif equip_choice == "quit":
+            quit()
 
     def rest(self):
         self.hp = self.max_hp
@@ -199,7 +237,10 @@ class Thief(Job):
 
 def create_player():
     player_name = input("플레이어 이름을 입력해주세요: ")
-    player_hp = random.randint(150, 200)
+    print(f"{player_name}으로 등록되었습니다.")
+    sleep(1)
+    os.system('cls')
+    player_hp = random.randint(170, 220)
     player_mp = random.randint(50, 60)
     player_power = random.randint(25, 30)
     players = Player(player_name, player_hp, player_power, player_mp)
@@ -209,6 +250,7 @@ def create_player():
 
 
 def create_job():
+    sleep(1)
     print("직업을 선택해주세요")
     print("1. 전사(Warrior)")
     print("2. 궁수(Archer)")
@@ -227,4 +269,40 @@ def create_job():
     elif job_choice == "4":
         player_job = Thief()
         print(f"{player_job}")
+    sleep(1)
+    os.system('cls')
     return player_job
+
+
+def item_equip(player):
+    print("=" * 25)
+    print("장착하실 장비의 이름을 입력해주세요.")
+    print("아무것도 안하신다면 quit를 입력해주세요.")
+    equip_choice = input(">  ")
+    sleep(1)
+    while True:
+        if equip_choice == "강철검":
+            if "sword" in player.inventory:
+                print('"강철검"을 장착하여 공격력이 5 증가합니다.')
+                player.power += 5
+                player.skill_power += 5
+                player.inventory.remove("sword")
+            else:
+                print("강철검을 가지고 있지 않습니다.")
+                pass
+        elif equip_choice == "철갑옷":
+            if "armor" in player.inventory:
+                print('"철갑옷"을 장착하여 최대 체력이 10 증가합니다.')
+                player.max_hp += 10
+                player.hp += 10
+                player.inventory.remove("armor")
+            else:
+                print("철갑옷을 가지고 있지 않습니다.")
+                pass
+        elif equip_choice == "quit":
+            os.system('cls')
+            break
+
+        else:
+            print("잘못입력하셨습니다.")
+            continue
