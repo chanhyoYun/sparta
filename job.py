@@ -33,6 +33,7 @@ class Player(Object):
         self.hp = hp
         self.max_mp = mp
         self.mp = mp
+        self.money = 1000000
         self.power = power
         self.inventory = []
         self.job = create_job()
@@ -50,6 +51,7 @@ class Player(Object):
         if not monster.is_alive():
             print(f"{monster.name} 가 죽었어요..!")
             self.experience += 10
+            self.money += 100
             self.level_up()
 
     def skill_attack(self, monster):
@@ -61,6 +63,7 @@ class Player(Object):
             if not monster.is_alive():
                 print(f"{monster.name} 가 죽었음")
                 self.experience += 10
+                self.money += 100
                 self.level_up()
         else:
             print(f"MP가 부족합니다. {self.mp}/{self.max_mp}")
@@ -82,14 +85,28 @@ class Player(Object):
             print(f"레벨업 했습니다: {self.level}!")
 
     def heal(self):
-        if "Potion" in self.inventory:
-            self.hp += 5
-            if self.hp > self.max_hp:
-                self.hp = self.max_hp
-            self.inventory.remove("Potion")
-            print("포션을 사용했습니다.")
-        else:
-            print("포션을 가지고 있지 않아요!")
+        print("1. HP 포션")
+        print("2. MP 포션")
+        potion_type = input(">  ")
+        if potion_type == "1":
+            if "potion" in self.inventory:
+                self.hp += 5
+                if self.hp > self.max_hp:
+                    self.hp = self.max_hp
+                self.inventory.remove("potion")
+                print("포션을 사용했습니다.")
+            else:
+                print("포션을 가지고 있지 않아요!")
+
+        elif potion_type == "2":
+            if "potion2" in self.inventory:
+                self.mp += 5
+                if self.mp > self.max_mp:
+                    self.mp = self.max_mp
+                self.inventory.remove("potion2")
+                print("포션을 사용했습니다.")
+            else:
+                print("포션을 가지고 있지 않아요!")
 
     def rest(self):
         self.hp = self.max_hp
@@ -102,6 +119,7 @@ class Player(Object):
         print(f"경험치: {self.experience}")
         print(f"HP: {self.hp}/{self.max_hp}")
         print(f"MP: {self.mp}/{self.max_mp}")
+        print(f"Gold: {self.money}")
         print(f"파워: {self.power}")
         print(f"스킬파워: {self.skill_power}")
         print(f"인벤토리: {', '.join(self.inventory)}")

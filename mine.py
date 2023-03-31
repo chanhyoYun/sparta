@@ -11,18 +11,17 @@ class Reward:
     def strength_up(self):
         self.job_str += 2
         self.skill_power += 2
+        print("힘(Strength)이 2증가하였습니다.")
 
     def intelligence_up(self):
         self.job_int += 2
         self.skill_power += 2
+        print("지능(Intelligence)이 2증가하였습니다.")
 
     def agility_up(self):
         self.job_agi += 2
         self.skill_power += 2
-
-    def item_get(self):
-        a = items.items()
-        self.inventory.append(a)
+        print("민첩(Agility)이 2증가하였습니다.")
 
 
 def rewards(player):
@@ -36,16 +35,19 @@ def rewards(player):
         print("1. 힘(Strength)")
         print("2. 지능(Intelligence)")
         print("3. 민첩(Agility)")
-        stat_choice = input("→   ")
-        if stat_choice == "1":
+        stats_choice = input("→   ")
+        if stats_choice == "1":
             Reward.strength_up(player)
-        elif stat_choice == "2":
+        elif stats_choice == "2":
             Reward.intelligence_up(player)
-        elif stat_choice == "3":
+        elif stats_choice == "3":
             Reward.agility_up(player)
 
     elif reward_choice == "2":
-        Reward.item_get(player)
+        item_store = items.make_item()
+        item_in = random.choice(item_store)
+        player.inventory.append(item_in.name)
+        print(f"{item_in.name}을 얻었습니다.")
 
     elif reward_choice == "3":
         reward_choice = random.randint(1, 3)
@@ -54,14 +56,16 @@ def rewards(player):
             print("1. 힘(Strength)")
             print("2. 지능(Intelligence)")
             print("3. 민첩(Agility)")
-            stat_choice = input("→   ")
-            if stat_choice == "1":
+            stats_choice = input("→   ")
+            if stats_choice == "1":
                 Reward.strength_up(player)
-            elif stat_choice == "2":
+            elif stats_choice == "2":
                 Reward.intelligence_up(player)
-            elif stat_choice == "3":
+            elif stats_choice == "3":
                 Reward.agility_up(player)
 
         elif reward_choice == "2":
-            # 아이템과 연결해야 함
-            pass
+            item_store = items.make_item()
+            item_in = random.choice(item_store)
+            player.inventory.append(item_in.name)
+            print(f"{item_in.name}을 얻었습니다.")
