@@ -50,21 +50,19 @@ def rewards(player):
         print(f"{item_in.name}을 얻었습니다.")
 
     elif reward_choice == "3":
-        reward_choice = random.randint(1, 3)
-        if reward_choice == "1":
+        reward_choice = random.randint(1, 2)
+        if reward_choice == 1:
+            print("스탯 증가가 선택되었습니다.")
             print("증가할 스탯을 선택해주세요.")
-            print("1. 힘(Strength)")
-            print("2. 지능(Intelligence)")
-            print("3. 민첩(Agility)")
-            stats_choice = input("→   ")
-            if stats_choice == "1":
+            stats_choice = random.randint(1, 3)
+            if stats_choice == 1:
                 Reward.strength_up(player)
-            elif stats_choice == "2":
+            elif stats_choice == 2:
                 Reward.intelligence_up(player)
-            elif stats_choice == "3":
+            elif stats_choice == 3:
                 Reward.agility_up(player)
 
-        elif reward_choice == "2":
+        elif reward_choice == 2:
             item_store = items.make_item()
             item_in = random.choice(item_store)
             player.inventory.append(item_in.name)
